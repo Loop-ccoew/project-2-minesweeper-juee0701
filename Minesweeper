@@ -1,0 +1,170 @@
+
+
+#include <stdio.h>
+
+#include<stdlib.h>
+
+ void start();
+
+ void rand_mines(char msweep[12][12]);
+
+ void printmatrix(char msweep[12][12], int r, char user_input[12][12]);
+
+int main()
+
+{
+char msweep[12][12]={{'0'}};
+
+int i,r,c;
+
+char user_input[12][12]={{'0'}};
+
+rand_mines(msweep);
+
+printmatrix(msweep,12,user_input);
+
+printf("Enter your location from 1-11on the minefield (x,y) \n");
+
+scanf("%d%d",&r,&c);
+
+printmatrix(msweep,12,user_input);
+
+i=process(msweep,r,c,user_input); //returns 1 or 0. 0 is mine and 1 is not mine.
+
+while(i==1)
+
+{
+    printf("You are safe!Live on for another round. \n");
+ 
+   printf(" %c Surrounding mines \n \n",msweep[r][c]);
+
+    printmatrix(msweep,12,user_input);
+  
+  printf("Enter next move from 1-11 \n");
+  
+  scanf("%d%d",&r,&c);
+ 
+   i=0;
+   
+ i=process(msweep,r,c,user_input);
+}
+
+if (i==0)
+
+{ printf("GAME OVER \n");}
+
+return 0;
+
+}
+
+void rand_mines(char msweep[12][12])
+
+{int r,c,m;
+
+srand(12);
+
+for(m=0;m<20;m++)// Plant 20 random mines
+
+{
+    r=rand()%13;
+    
+     c=rand()%13;
+
+    msweep[r][c]='9';
+ 
+   printf("%d%d \n",&r,&c);
+
+}
+
+return;
+
+}
+
+void printmatrix(char msweep[12][12],int r,char user_input[12][12])
+
+{
+    int i,j;
+  
+  printf("   .-.-.-.-.-.-.-.-.-.-.-.\n");
+ 
+   for(i=1;i<r;i++)
+ 
+   {
+        printf("./.");
+
+        for(j=1;j<12;j++)
+
+        {
+            printf("%c",user_input[i][j]);
+     
+               }
+  
+                  printf(".\\.");
+     
+               printf("\n");
+ 
+   }
+
+    printf(".-.-.-.-.-.-.-.-.-.-.-.-.\n\n");
+ 
+   return;
+
+}
+
+int process(char msweep[12][12],int r,int c,char user_input[12][12])
+
+{ int i=r,j=c,b=0,k;
+
+char h;
+
+if (msweep[r][c]=='9')
+
+{k=0;
+
+return k;
+    }
+ 
+   else
+
+    { if(msweep[i-1][j-1]=='9')
+
+    b++;
+ 
+   if(msweep[i-1][j]=='9')
+
+    b++;
+ 
+   if(msweep[i-1][j+1]='9')
+
+    b++;
+
+    if(msweep[i][j-1]='9')
+
+    b++;
+
+    if(msweep[i][j+1]='9')
+
+    b++;
+ 
+   if(msweep[i+1][j-1]='9')
+
+    b++;
+ 
+   if(msweep[i+1][j]='9')
+
+    b++;
+
+    if(msweep[i+1][j+1]='9')
+
+    b++;
+
+    h=(char)(((int)'0')+b);
+
+    msweep[r][c]=h;
+   
+ user_input[r][c]=h;
+
+}
+return 1;
+
+}
