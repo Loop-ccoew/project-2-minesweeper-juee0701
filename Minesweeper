@@ -1,33 +1,31 @@
-
-
 #include <stdio.h>
 
 #include<stdlib.h>
 
  void start();
 
- void rand_mines(char msweep[12][12]);
+ void rand_mines(char msweep[6][6]);
 
- void printmatrix(char msweep[12][12], int r, char user_input[12][12]);
+ void printmatrix(char msweep[6][6], int r, char user_input[6][6]);
 
 int main()
 
 {
-char msweep[12][12]={{'0'}};
+char msweep[6][6]={{'0'}};
 
 int i,r,c;
 
-char user_input[12][12]={{'0'}};
+char user_input[6][6]={{'0'}};
 
 rand_mines(msweep);
 
-printmatrix(msweep,12,user_input);
+printmatrix(msweep,6,user_input);
 
-printf("Enter your location from 1-11on the minefield (x,y) \n");
+printf("Enter your location from 1-5 on the minefield (x,y) \n");
 
 scanf("%d%d",&r,&c);
 
-printmatrix(msweep,12,user_input);
+printmatrix(msweep,6,user_input);
 
 i=process(msweep,r,c,user_input); //returns 1 or 0. 0 is mine and 1 is not mine.
 
@@ -40,7 +38,7 @@ while(i==1)
 
     printmatrix(msweep,12,user_input);
   
-  printf("Enter next move from 1-11 \n");
+  printf("Enter next move from 1-5 \n");
   
   scanf("%d%d",&r,&c);
  
@@ -57,18 +55,18 @@ return 0;
 
 }
 
-void rand_mines(char msweep[12][12])
+void rand_mines(char msweep[6][6])
 
 {int r,c,m;
 
-srand(12);
+srand(6);
 
-for(m=0;m<20;m++)// Plant 20 random mines
+for(m=0;m<10;m++)// Plant 20 random mines
 
 {
-    r=rand()%13;
+    r=rand()%7;
     
-     c=rand()%13;
+     c=rand()%7;
 
     msweep[r][c]='9';
  
@@ -80,19 +78,19 @@ return;
 
 }
 
-void printmatrix(char msweep[12][12],int r,char user_input[12][12])
+void printmatrix(char msweep[6][6],int r,char user_input[6][6])
 
 {
     int i,j;
   
-  printf("   .-.-.-.-.-.-.-.-.-.-.-.\n");
+  printf("   .-.-.-.-.-.\n");
  
    for(i=1;i<r;i++)
  
    {
-        printf("./.");
+        printf("   ./.");
 
-        for(j=1;j<12;j++)
+        for(j=1;j<6;j++)
 
         {
             printf("%c",user_input[i][j]);
@@ -105,13 +103,13 @@ void printmatrix(char msweep[12][12],int r,char user_input[12][12])
  
    }
 
-    printf(".-.-.-.-.-.-.-.-.-.-.-.-.\n\n");
+    printf("   .-.-.-.-.-.\n\n");
  
    return;
 
 }
 
-int process(char msweep[12][12],int r,int c,char user_input[12][12])
+int process(char msweep[6][6],int r,int c,char user_input[6][6])
 
 { int i=r,j=c,b=0,k;
 
